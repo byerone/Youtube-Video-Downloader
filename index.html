@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Timestamp Downloader</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube Timestamp Downloader</h1>
+        <p class="subtitle">Download specific segments from YouTube videos</p>
+        
+        <div class="form-container">
+            <div class="input-group">
+                <label for="youtube-url">YouTube URL</label>
+                <input 
+                    type="text" 
+                    id="youtube-url" 
+                    placeholder="https://www.youtube.com/watch?v=..."
+                >
+            </div>
+
+            <div class="timestamp-group">
+                <div class="input-group">
+                    <label for="start-time">Start Time</label>
+                    <input 
+                        type="text" 
+                        id="start-time" 
+                        placeholder="00:00:00"
+                    >
+                    <span class="hint">Format: HH:MM:SS</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="end-time">End Time</label>
+                    <input 
+                        type="text" 
+                        id="end-time" 
+                        placeholder="00:05:00"
+                    >
+                    <span class="hint">Format: HH:MM:SS</span>
+                </div>
+            </div>
+
+            <button id="download-btn" class="download-btn">
+                Download Segment
+            </button>
+
+            <div id="status-message" class="status-message hidden"></div>
+        </div>
+
+        <div class="info-box">
+            <h3>How to use:</h3>
+            <ol>
+                <li>Paste a YouTube video URL</li>
+                <li>Enter the start time (e.g., 00:01:30 for 1 minute 30 seconds)</li>
+                <li>Enter the end time</li>
+                <li>Click "Download Segment"</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
