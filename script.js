@@ -159,6 +159,25 @@ function autoFormatTime(input) {
 autoFormatTime(startTimeInput);
 autoFormatTime(endTimeInput);
 
+// Auto-copy start time to end time
+startTimeInput.addEventListener('input', function() {
+    // Only copy if end time is empty or hasn't been manually edited
+    if (endTimeInput.value === '' || !endTimeInput.dataset.manuallyEdited) {
+        endTimeInput.value = startTimeInput.value;
+    }
+});
+
+// Mark end time as manually edited when user types in it
+endTimeInput.addEventListener('input', function() {
+    endTimeInput.dataset.manuallyEdited = 'true';
+});
+
+// Reset manual edit flag when start time changes significantly
+startTimeInput.addEventListener('blur', function() {
+    // Reset the flag so future start time changes copy again
+    delete endTimeInput.dataset.manuallyEdited;
+});
+
 // Clear status message when user starts typing
 [youtubeUrlInput, startTimeInput, endTimeInput].forEach(input => {
     input.addEventListener('input', hideStatus);
