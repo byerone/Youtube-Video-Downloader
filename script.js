@@ -95,7 +95,12 @@ downloadBtn.addEventListener('click', function() {
     downloadBtn.disabled = true;
     
     // Send data to Python backend
-    fetch('http://localhost:5000/download', {
+    // Use relative URL so it works both locally and when deployed
+    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+        ? 'http://localhost:5000/download' 
+        : '/download';
+    
+    fetch(apiUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -130,6 +135,29 @@ downloadBtn.addEventListener('click', function() {
         }
     });
 });
+
+// Auto-format time inputs (add colons automatically)
+function autoFormatTime(input) {
+    input.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/[^0-9]/g, ''); // Remove non-digits
+        
+        if (value.length >= 5) {
+            // Format as HH:MM:SS
+            value = value.substring(0, 6);
+            e.target.value = value.substring(0, 2) + ':' + value.substring(2, 4) + ':' + value.substring(4, 6);
+        } else if (value.length >= 3) {
+            // Format as MM:SS
+            value = value.substring(0, 4);
+            e.target.value = value.substring(0, 2) + ':' + value.substring(2, 4);
+        } else {
+            e.target.value = value;
+        }
+    });
+}
+
+// Apply auto-formatting to time inputs
+autoFormatTime(startTimeInput);
+autoFormatTime(endTimeInput);
 
 // Clear status message when user starts typing
 [youtubeUrlInput, startTimeInput, endTimeInput].forEach(input => {
